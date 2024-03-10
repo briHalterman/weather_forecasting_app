@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: one
+  high_temperature: 1
+  low_temperature: 1
+  date: 2024-03-10
+
+two:
+  location: two
+  high_temperature: 1
+  low_temperature: 1
+  date: 2024-03-10
