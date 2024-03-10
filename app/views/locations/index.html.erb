@@ -1,16 +1,16 @@
 <h1>My Locations</h1>
 
-<%# iterate over each Location object in the @locations instance variable %>
+<!-- iterate over each Location object in the @locations instance variable -->
 <% @locations.each do |location| %>
   <div>
-    <%# generate a link to the show action of the Location object %>
+    <!-- generate a link to the show action of the Location object -->
     <h3><%= link_to location.name, location %></h3>
-    <%# display the IP address of each location %>
+    <!-- display the IP address of each location -->
     <p>IP Address: <%= location.ip_address %></p>
-    <%# display the text address of each location %>
+    <!-- display the text address of each location -->
     <p>Text Address: <%= location.text_address %></p>
   </div>
 <% end %>
 
-<%# create a hyperlink with the text "New Location" that points to the new_location_path %>
+<!-- create a hyperlink with the text "New Location" that points to the new_location_path -->
 <%= link_to 'New Location', new_location_path %>
