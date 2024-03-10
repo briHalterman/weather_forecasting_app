@@ -26,20 +26,24 @@ class LocationsController < ApplicationController
   def create
     # use data received from the form to create a new Location object
     @location = Location.new(location_params)
-
-    # respond to different formats
-    respond_to do |format|
-      # location is successfully saved
-      if @location.save
-        # redirect to show page for the newly created location & provide success notice
-        format.html { redirect_to location_url(@location), notice: "Location was successfully created." }
-        format.json { render :show, status: :created, location: @location }
-      # if there are validation errors during the save operation
-      else
-        # new view again with the status :unprocessable_entity (HTTP status code 422)
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
+    if @location.valid? # trigger validations on the @location object
+      # respond to different formats
+      respond_to do |format|
+        # save location to db
+        if @location.save
+          # redirect to show page for the newly created location & provide success notice
+          format.html { redirect_to location_url(@location), notice: "Location was successfully created." }
+          format.json { render :show, status: :created, location: @location }
+        # if there are validation errors during the save operation
+        else
+          # new view again with the status :unprocessable_entity (HTTP status code 422)
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @location.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      # Handle validation errors
+
     end
   end
 
