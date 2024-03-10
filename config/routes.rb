@@ -1,9 +1,5 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  resources :locations
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-  # root "application#hello"
-  root "application#goodbye"
+  resources :locations # , only: [:index, :show]
+  # other routes...
 end

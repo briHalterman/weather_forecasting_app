@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: %i[ show edit update destroy ]
+  # set_location method should be called before any of the actions listed in the only option
+  before_action :set_location, only: %i[ show edit update destroy ] 
 
   # GET /locations or /locations.json
   def index
@@ -18,6 +19,8 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
+    # Fetch the location to be edited based on its ID
+    # This will be handled by the before_action set_location
     @location = Location.find(params[:id])
   end
 
@@ -48,13 +51,21 @@ class LocationsController < ApplicationController
   end
 
   # PATCH/PUT /locations/1 or /locations/1.json
+  # Update the attributes of the location with the new values provided by the user
   def update
+    # specify different responses based on the format of the request (HTML or JSON)
     respond_to do |format|
+      # attempt to update the location record with the new values provided by the user
       if @location.update(location_params)
+        # if the update was successful and the request was in HTML format, the user is redirected to the location's show page with a success notice
         format.html { redirect_to location_url(@location), notice: "Location was successfully updated." }
+        # if the request was in JSON format, the updated location details are rendered in the response body along with a success status
         format.json { render :show, status: :ok, location: @location }
+      # if the update was unsuccessful
       else
+        # if the request was in HTML format and the update failed, the edit form is re-rendered with the errors highlighted
         format.html { render :edit, status: :unprocessable_entity }
+        # if the request was in JSON format and the update failed, the errors are rendered in JSON format along with an appropriate status code
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
     end
@@ -71,13 +82,14 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_location
-      @location = Location.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def location_params
+  # Use callbacks to share common setup or constraints between actions.
+  def set_location
+    @location = Location.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def location_params
     params.require(:location).permit(:ip_address, :text_address)
   end
 end
