@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1 or /locations/1.json
   def show
+    @location = Location.find(params[:id])
   end
 
   # GET /locations/new
@@ -17,6 +18,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
+    @location = Location.find(params[:id])
   end
 
   # POST /locations or /locations.json
