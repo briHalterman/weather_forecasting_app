@@ -1,0 +1,30 @@
+<h1>Add a New Location</h1>
+
+<%# Rails provides form helpers that make it easy to generate form elements and handle form submissions. %>
+<%# form_with is a Rails form helper method that generates a form tag %>
+<%# The model option (@location) tells Rails which object the form is for %>
+<%# the url option (locations_path) specifies where the form should be submitted to %>
+
+<%= form_with(model: location, url: locations_path) do |form| %>
+  <%# define the input fields for the IP address and text address %>
+  <%# form.text_field generates a text input field for each attribute of the Location model %>
+  <div>
+    <%= form.label :ip_address %>
+    <%= form.text_field :ip_address %>
+  </div>
+  <div>
+    <%= form.label :text_address %>
+    <%= form.text_field :text_address %>
+  </div>
+  <div>
+    <%# include a submit button to allow users to submit the form and create a new location %>
+    <%# button text is "Create Location" %>
+    <%= form.submit "Create Location" %>
+  </div>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Back to locations", locations_path %>
+</div>
