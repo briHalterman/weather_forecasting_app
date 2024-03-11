@@ -8,8 +8,14 @@ class LocationsController < ApplicationController
   end
 
   # GET /locations/1 or /locations/1.json
+  # fetch the weather forecast data for that location using the WeatherService and make it available to the corresponding view
   def show
     @location = Location.find(params[:id])
+    @weather_forecast = WeatherService.get_weather_forecast(@location.latitude, @location.longitude)
+    
+    if @weather_forecast.nil?
+      flash[:alert] = "Failed to fetch weather data."
+    end
   end
 
   # GET /locations/new
@@ -27,6 +33,16 @@ class LocationsController < ApplicationController
   # POST /locations or /locations.json
   # handle the form submission for creating a new location
   def create
+    # obtain IP address from params hash
+    ip_address = params[:location][:ip_address]
+    coordinates = IpApiService.get_coordinates(ip_address)
+
+    if coordinates.nil?
+      flash[:alert] = "Failed to retrieve coordinates for the provided IP address."
+      redirect_to new_location_path
+      return
+    end
+
     # use data received from the form to create a new Location object
     @location = Location.new(location_params)
     if @location.valid? # trigger validations on the @location object
