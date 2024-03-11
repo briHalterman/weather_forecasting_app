@@ -1,11 +1,14 @@
-<h1><%= @location.name %></h1>
+<h1>Weather Forecast for <%= @location.name %></h1>
 <%# display the name of the location %>
 
-<div>
-  <%# display the IP address of the location %>
-  <p><strong>IP Address:</strong> <%= @location.ip_address %></p>
-  <%# display the text address of the location %>
-  <p><strong>Text Address:</strong> <%= @location.text_address %></p>
+<div class="weather-forecast">
+  <% @weather_forecast.each do |forecast| %>
+    <div class="forecast-item">
+      <p>Date: <%= forecast['date'] %></p>
+      <p>Temperature: <%= forecast['temperature'] %>°C</p>
+      <p>Description: <%= forecast['description'] %></p>
+    </div>
+  <% end %>
 </div>
 
 <%# generate a link to edit the location using the edit action of the Locations controller %>
