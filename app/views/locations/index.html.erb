@@ -1,8 +1,16 @@
 <h1>My Locations</h1>
 
 <ul>
+  <%# iterate over each location %>
   <% @locations.each do |location| %>
-    <li><%= link_to location.text_address, location_path(location) %></li>
+    <%# create new list item for each location %>
+    <li>
+      <%= link_to location.text_address, location_path(location) %>
+      <!-- Add delete button -->
+      <%= link_to location_path(location), method: :delete, data: { confirm: 'Are you sure you want to delete this location?' } do %>
+        <i class="fas fa-trash-alt"></i> Delete
+      <% end %>
+    </li>
   <% end %>
 </ul>
 
