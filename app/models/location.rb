@@ -11,6 +11,6 @@ class Location < ApplicationRecord
 
   # Define a method that returns the full address
   def full_address
-    [street, city, state, country].compact.join(', ')
+    [street, city, state, country].compact.join(', ') # concatenate the address components
   end
 end
