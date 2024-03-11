@@ -16,8 +16,30 @@ class WeatherService
     # if the request fails
     else
       # Handle error
+      handle_error(response)
       # return nil
       return nil
+    end
+    # catch any standard errors that might occur during the API request, such as network issues or timeouts
+    rescue StandardError => e
+      # Handle other errors like network issues, timeouts, etc.
+      puts "Error occurred: #{e.message}"
+      return nil
+    end
+
+  private
+
+  def self.handle_error(response)
+    case response.code
+    when 400..499
+      # Client-side error, such as invalid request
+      puts "Client-side error: #{response.code}"
+    when 500..599
+      # Server-side error, such as server not reachable or internal server error
+      puts "Server-side error: #{response.code}"
+    else
+      # Other unexpected errors
+      puts "Unexpected error: #{response.code}"
     end
   end
 end
