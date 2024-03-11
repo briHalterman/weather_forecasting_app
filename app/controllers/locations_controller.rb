@@ -72,7 +72,10 @@ class LocationsController < ApplicationController
   end
 
   # DELETE /locations/1 or /locations/1.json
+  # find the location by its ID and delete it from the database
   def destroy
+    # assign @location by finding the location with the specified ID
+    @location = Location.find(params[:id])
     @location.destroy
 
     respond_to do |format|
