@@ -74,10 +74,12 @@ class LocationsController < ApplicationController
   # DELETE /locations/1 or /locations/1.json
   # find the location by its ID and delete it from the database
   def destroy
-    # assign @location by finding the location with the specified ID
+    # retrieve the location to be deleted from the database based on the ID
     @location = Location.find(params[:id])
+    # delete the location from the database
     @location.destroy
 
+    # respond differently based on the format of the request
     respond_to do |format|
       format.html { redirect_to locations_url, notice: "Location was successfully destroyed." }
       format.json { head :no_content }
