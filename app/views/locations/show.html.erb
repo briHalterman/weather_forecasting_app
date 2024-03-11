@@ -1,0 +1,14 @@
+<h1><%= @location.name %></h1>
+<%# display the name of the location %>
+
+<div>
+  <%# display the IP address of the location %>
+  <p><strong>IP Address:</strong> <%= @location.ip_address %></p>
+  <%# display the text address of the location %>
+  <p><strong>Text Address:</strong> <%= @location.text_address %></p>
+</div>
+
+<%# generate a link to edit the location using the edit action of the Locations controller %>
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%# generate a link to go back to the list of all locations using the index action of the Locations controller %>
+<%= link_to 'Back', locations_path %>
