@@ -7,6 +7,7 @@
     <li>
       <%= link_to location.text_address, location_path(location) %>
       <!-- Add delete button -->
+      <%# display a confirmation prompt to ensure the user intends to delete the location %>
       <%= link_to location_path(location), method: :delete, data: { confirm: 'Are you sure you want to delete this location?' } do %>
         <i class="fas fa-trash-alt"></i> Delete
       <% end %>
